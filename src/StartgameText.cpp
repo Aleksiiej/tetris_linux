@@ -4,16 +4,19 @@ StartgameText::StartgameText() noexcept
 {
 	font_.loadFromFile(fontFilePath + "Ldfcomicsans-jj7l.ttf");
 	text_.setFont(font_);
-	text_.setString("Welcome in Tetris!\n"
-                    "INSTRUCTIONS: LEFT and RIGHT arrow keys to move blocks left and right\n"
+	text_.setString("Welcome in Tetris!\n\n"
+                    "INSTRUCTIONS:\n"
+                    "LEFT and RIGHT arrow keys to move blocks\n"
+                    "left and right\n"
                     "SPACE to rotate block\n"
-                    "DOWN arrow key to drop block to the bottom of the board\n"
+                    "DOWN arrow key to drop block to the bottom\n"
+                    "of the board\n"
                     "P to pause game\n\n"
-                    "Click SPACE to start game");
-	text_.setCharacterSize(24);
+                    "Click ENTER to start game");
+	text_.setCharacterSize(20);
 	text_.setFillColor(sf::Color::Red);
 	text_.setStyle(sf::Text::Bold | sf::Text::Underlined);
-	text_.setPosition(300, 400);
+	text_.setPosition(300, 200);
 }
 
 void StartgameText::draw(sf::RenderTarget& target, sf::RenderStates states) const noexcept

@@ -4,24 +4,42 @@
 #include "EndgameText.hpp"
 #include "StartgameText.hpp"
 
-std::unique_ptr<BaseBlock> drawBoard(const Band& band, BlockBoard& blockBoardRef, const ScoreCounter& scoreCounter, sf::RenderWindow& window, std::unique_ptr<BaseBlock> ptrToBlock = nullptr) noexcept;
-void resetGame(GameStatus& gameStatus, BlockBoard& blockBoard, ScoreCounter& scoreCounter) noexcept;
+std::unique_ptr<BaseBlock> drawBoard(const Band &band, BlockBoard &blockBoardRef, const ScoreCounter &scoreCounter, sf::RenderWindow &window, std::unique_ptr<BaseBlock> ptrToBlock = nullptr) noexcept;
+void resetGame(GameStatus &gameStatus, BlockBoard &blockBoard, ScoreCounter &scoreCounter) noexcept;
 
 int main()
 {
-	sf::RenderWindow window{ sf::VideoMode{800, 600}, "Tetris", sf::Style::Titlebar | sf::Style::Close };
+	sf::RenderWindow window{sf::VideoMode{800, 600}, "Tetris", sf::Style::Titlebar | sf::Style::Close};
 	window.setFramerateLimit(60);
 	sf::Event event;
 
-	GameStatus gameStatus{ GameStatus::Ongoing };
-	const Band band{ GRID, GRID };
-	const StartgameText StartgameText;
+	GameStatus gameStatus{GameStatus::Ongoing};
+	const Band band{GRID, GRID};
+	const StartgameText startgameText;
 	const EndgameText endgameText;
 	ScoreCounter scoreCounter;
-	BlockBoard blockBoard{ scoreCounter };
+	BlockBoard blockBoard{scoreCounter};
 	std::random_device rd;
 	std::unique_ptr<BaseBlock> ptrToBlock = std::move(BlockCreator::createRandomBlock(blockBoard, rd));
 	sf::Clock clock;
+
+	window.clear(sf::Color::White);
+	drawBoard(band, blockBoard, scoreCounter, window);
+	window.draw(startgameText);
+	window.display();
+
+	while (window.waitEvent(event))
+	{
+		if (event.type == sf::Event::EventType::KeyPressed and event.key.code == sf::Keyboard::Enter)
+		{
+			break;
+		}
+		if (event.type == sf::Event::EventType::Closed or event.key.code == sf::Keyboard::Escape)
+		{
+			window.close();
+			return 0;
+		}
+	}
 
 	while (true)
 	{
@@ -89,14 +107,14 @@ int main()
 			window.display();
 			while (window.waitEvent(event))
 			{
+				if (event.type == sf::Event::EventType::KeyPressed and event.key.code == sf::Keyboard::Space)
+				{
+					break;
+				}
 				if (event.type == sf::Event::EventType::Closed or event.key.code == sf::Keyboard::Escape)
 				{
 					window.close();
 					return 0;
-				}
-				if (event.type == sf::Event::EventType::KeyPressed and event.key.code == sf::Keyboard::Space)
-				{
-					break;
 				}
 			}
 			resetGame(gameStatus, blockBoard, scoreCounter);
@@ -105,13 +123,13 @@ int main()
 	return 0;
 }
 
-std::unique_ptr<BaseBlock> drawBoard(const Band& band, BlockBoard& blockBoardRef, const ScoreCounter& scoreCounter, sf::RenderWindow& window, std::unique_ptr<BaseBlock> ptrToBlock) noexcept
+std::unique_ptr<BaseBlock> drawBoard(const Band &band, BlockBoard &blockBoardRef, const ScoreCounter &scoreCounter, sf::RenderWindow &window, std::unique_ptr<BaseBlock> ptrToBlock) noexcept
 {
 	window.draw(band);
 	window.draw(scoreCounter);
 
 	sf::RectangleShape singleField; // TODO: figure out how to use smaller class than RectangleShape
-	singleField.setSize(sf::Vector2f{ GRID, GRID });
+	singleField.setSize(sf::Vector2f{GRID, GRID});
 	for (uint8_t i = 0; i < NUMBER_OF_COLUMNS; i++)
 	{
 		for (uint8_t j = 0; j < NUMBER_OF_ROWS; j++)
@@ -123,7 +141,7 @@ std::unique_ptr<BaseBlock> drawBoard(const Band& band, BlockBoard& blockBoardRef
 	}
 	if (ptrToBlock)
 	{
-		for (const auto& block : ptrToBlock->getBlockArrayRef())
+		for (const auto &block : ptrToBlock->getBlockArrayRef())
 		{
 			window.draw(block);
 		}
@@ -132,7 +150,7 @@ std::unique_ptr<BaseBlock> drawBoard(const Band& band, BlockBoard& blockBoardRef
 	return ptrToBlock;
 }
 
-void resetGame(GameStatus& gameStatus, BlockBoard& blockBoard, ScoreCounter& scoreCounter) noexcept
+void resetGame(GameStatus &gameStatus, BlockBoard &blockBoard, ScoreCounter &scoreCounter) noexcept
 {
 	gameStatus = GameStatus::Ongoing;
 	blockBoard.clear();
