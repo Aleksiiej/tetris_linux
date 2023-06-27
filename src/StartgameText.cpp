@@ -11,7 +11,7 @@ StartgameText::StartgameText() noexcept
                     "SPACE to rotate block\n"
                     "DOWN arrow key to drop block to the bottom\n"
                     "of the board\n"
-                    "P to pause game\n\n"
+                    "P to pause and unpause game\n\n"
                     "Click ENTER to start game");
 	text_.setCharacterSize(20);
 	text_.setFillColor(sf::Color::Red);

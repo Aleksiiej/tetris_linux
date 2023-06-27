@@ -69,6 +69,16 @@ int main()
 						ptrToBlock->rotate();
 						break;
 
+					case sf::Keyboard::P:
+						while (window.waitEvent(event))
+						{
+							if (event.type == sf::Event::EventType::KeyPressed and event.key.code == sf::Keyboard::P)
+							{
+								break;
+							}
+						}
+						break;
+
 					default:
 						break;
 					}
