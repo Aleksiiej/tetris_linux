@@ -2,9 +2,6 @@
 .vscode/
 build/
 
-#files
-database.txt
-
 # Compiled Object files
 *.slo
 *.lo

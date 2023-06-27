@@ -1,5 +1,6 @@
 #pragma once
 
+#include "GlobalValues.hpp"
 #include <SFML/Graphics.hpp>
 
 class EndgameText : public sf::Drawable

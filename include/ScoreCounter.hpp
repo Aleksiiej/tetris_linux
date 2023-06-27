@@ -1,5 +1,6 @@
 #pragma once
 
+#include "GlobalValues.hpp"
 #include <SFML/Graphics.hpp>
 
 class ScoreCounter : public sf::Drawable

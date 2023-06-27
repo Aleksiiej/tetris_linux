@@ -2,7 +2,7 @@
 
 ScoreCounter::ScoreCounter() noexcept : score_(0)
 {
-	font_.loadFromFile("Ldfcomicsans-jj7l.ttf");
+	font_.loadFromFile(fontFilePath + "Ldfcomicsans-jj7l.ttf");
 	text_.setFont(font_);
 	text_.setString("Score: " + std::to_string(score_));
 	text_.setCharacterSize(24);
