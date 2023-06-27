@@ -13,12 +13,13 @@ set(SRC_LIST
     BlockCreator.cpp
     EndgameText.cpp
     ScoreCounter.cpp
+    StartgameText.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Werror)
 
-find_package(SFML COMPONENTS window graphics system)
+find_package(SFML COMPONENTS graphics)
 target_link_libraries(${PROJECT_NAME} sfml-graphics)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 target_include_directories(${PROJECT_NAME} PUBLIC ../include)

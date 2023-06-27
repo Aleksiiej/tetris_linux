@@ -2,6 +2,7 @@
 #include "BlockCreator.hpp"
 #include "BaseBlock.hpp"
 #include "EndgameText.hpp"
+#include "StartgameText.hpp"
 
 std::unique_ptr<BaseBlock> drawBoard(const Band& band, BlockBoard& blockBoardRef, const ScoreCounter& scoreCounter, sf::RenderWindow& window, std::unique_ptr<BaseBlock> ptrToBlock = nullptr) noexcept;
 void resetGame(GameStatus& gameStatus, BlockBoard& blockBoard, ScoreCounter& scoreCounter) noexcept;
@@ -14,6 +15,7 @@ int main()
 
 	GameStatus gameStatus{ GameStatus::Ongoing };
 	const Band band{ GRID, GRID };
+	const StartgameText StartgameText;
 	const EndgameText endgameText;
 	ScoreCounter scoreCounter;
 	BlockBoard blockBoard{ scoreCounter };
@@ -48,7 +50,7 @@ int main()
 					case sf::Keyboard::Space:
 						ptrToBlock->rotate();
 						break;
-						
+
 					default:
 						break;
 					}
