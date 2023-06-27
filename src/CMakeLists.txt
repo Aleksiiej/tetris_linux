@@ -15,9 +15,10 @@ set(SRC_LIST
     ScoreCounter.cpp
 )
 
-add_executable(tetris_linux ${SRC_LIST})
+add_executable(${PROJECT_NAME} ${SRC_LIST})
+target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Werror)
 
 find_package(SFML COMPONENTS window graphics system)
-target_link_libraries(tetris_linux sfml-graphics)
-target_compile_features(tetris_linux PUBLIC cxx_std_20)
-target_include_directories(tetris_linux PUBLIC ../include)
+target_link_libraries(${PROJECT_NAME} sfml-graphics)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+target_include_directories(${PROJECT_NAME} PUBLIC ../include)

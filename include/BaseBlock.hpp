@@ -17,11 +17,11 @@ public:
 	void moveDown() noexcept;
 	void rotate() noexcept;
 
-	const bool isFallingPossible() const noexcept;
-	const bool isMoveRightPossible() const noexcept;
-	const bool isMoveLeftPossible() const noexcept;
-	const bool isRotationPossible() const noexcept;
-	const bool checkIfLost() const noexcept;
+	bool isFallingPossible() const noexcept;
+	bool isMoveRightPossible() const noexcept;
+	bool isMoveLeftPossible() const noexcept;
+	bool isRotationPossible() const noexcept;
+	bool checkIfLost() const noexcept;
 
 	void setColor(const sf::Color& color) noexcept;
 	const std::array<sf::RectangleShape, 4>& getBlockArrayRef() const noexcept;
@@ -33,6 +33,6 @@ protected:
 	void setColorsInBlockBoard() const noexcept;
 	const std::vector<std::pair<float, float>> getCoords() const noexcept;
 	void extractAdjacentCoords(std::vector<std::pair<float, float>>& blockCoords, std::vector<std::pair<float, float>>& newCoords) const noexcept;
-	const int gridToX(const float& blockNumber) const noexcept;
-	const int gridToY(const float& blockNumber) const noexcept;
+	int gridToX(const float& blockNumber) const noexcept;
+	int gridToY(const float& blockNumber) const noexcept;
 };

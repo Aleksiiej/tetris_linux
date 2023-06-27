@@ -49,7 +49,7 @@ void BaseBlock::rotate() noexcept
 	}
 }
 
-const bool BaseBlock::isFallingPossible() const noexcept
+bool BaseBlock::isFallingPossible() const noexcept
 {
 	auto blockCoords = getCoords();
 	auto newCoords{ blockCoords };
@@ -68,7 +68,7 @@ const bool BaseBlock::isFallingPossible() const noexcept
 	return true;
 }
 
-const bool BaseBlock::isMoveRightPossible() const noexcept
+bool BaseBlock::isMoveRightPossible() const noexcept
 {
 	auto blockCoords = getCoords();
 	auto newCoords{ blockCoords };
@@ -86,7 +86,7 @@ const bool BaseBlock::isMoveRightPossible() const noexcept
 	return true;
 }
 
-const bool BaseBlock::isMoveLeftPossible() const noexcept
+bool BaseBlock::isMoveLeftPossible() const noexcept
 {
 	auto blockCoords = getCoords();
 	auto newCoords{ blockCoords };
@@ -104,7 +104,7 @@ const bool BaseBlock::isMoveLeftPossible() const noexcept
 	return true;
 }
 
-const bool BaseBlock::isRotationPossible() const noexcept
+bool BaseBlock::isRotationPossible() const noexcept
 {
 	float newX{ 0 };
 	float newY{ 0 };
@@ -129,7 +129,7 @@ const bool BaseBlock::isRotationPossible() const noexcept
 	return true;
 }
 
-const bool BaseBlock::checkIfLost() const noexcept
+bool BaseBlock::checkIfLost() const noexcept
 {
 	for (uint8_t i = 0; i < 4; i++)
 	{
@@ -182,7 +182,7 @@ void BaseBlock::extractAdjacentCoords(std::vector<std::pair<float, float>>& bloc
 	}
 }
 
-const int BaseBlock::gridToX(const float& blockNumber) const noexcept
+int BaseBlock::gridToX(const float& blockNumber) const noexcept
 {
 	if (blockNumber >= 0 and blockNumber < 5)
 	{
@@ -191,7 +191,7 @@ const int BaseBlock::gridToX(const float& blockNumber) const noexcept
 	else return static_cast<int>((blockNumber - GRID) / GRID);
 }
 
-const int BaseBlock::gridToY(const float& blockNumber) const noexcept
+int BaseBlock::gridToY(const float& blockNumber) const noexcept
 {
 	if (blockNumber >= 0 and blockNumber < 5)
 	{

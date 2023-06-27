@@ -48,6 +48,9 @@ int main()
 					case sf::Keyboard::Space:
 						ptrToBlock->rotate();
 						break;
+						
+					default:
+						break;
 					}
 				}
 				else if (event.type == sf::Event::EventType::Closed)
