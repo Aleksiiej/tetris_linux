@@ -2,7 +2,7 @@
 
 EndgameText::EndgameText() noexcept
 {
-	font_.loadFromFile(fontFilePath + "Ldfcomicsans-jj7l.ttf");
+	font_.loadFromFile(fontFilePath);
 	text_.setFont(font_);
 	text_.setString("You loose!\nClick ESCAPE button to close game\nOr Space to begin new game");
 	text_.setCharacterSize(24);
