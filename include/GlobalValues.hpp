@@ -12,5 +12,3 @@ enum class GameStatus
 {
 	Ongoing, Lost
 };
-
-const std::string fontFilePath{"../content/Ldfcomicsans-jj7l.ttf"};

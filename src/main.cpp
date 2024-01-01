@@ -20,7 +20,7 @@ int main()
 	ScoreCounter scoreCounter;
 	BlockBoard blockBoard{scoreCounter};
 	std::random_device rd;
-	std::unique_ptr<BaseBlock> ptrToBlock = std::move(BlockCreator::createRandomBlock(blockBoard, rd));
+	std::unique_ptr<BaseBlock> ptrToBlock = BlockCreator::createRandomBlock(blockBoard, rd);
 	sf::Clock clock;
 
 	window.clear(sf::Color::White);
