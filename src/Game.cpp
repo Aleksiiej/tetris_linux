@@ -116,22 +116,24 @@ void Game::run()
     }
 }
 
-void gameLoop() noexcept
+
+void Game::gameLoop() noexcept
 {
 
 }
 
-void processInput() noexcept
+=======
+void Game::processInput() noexcept
 {
 
 }
 
-void update() noexcept
+void Game::update() noexcept
 {
 
 }
 
-void render() noexcept
+void Game::render() noexcept
 {
     
 }
