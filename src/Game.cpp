@@ -116,6 +116,26 @@ void Game::run()
     }
 }
 
+void gameLoop() noexcept
+{
+
+}
+
+void processInput() noexcept
+{
+
+}
+
+void update() noexcept
+{
+
+}
+
+void render() noexcept
+{
+    
+}
+
 std::unique_ptr<BaseBlock> Game::drawBoard(const Band &band_, BlockBoard &blockBoardRef_, const ScoreCounter &scoreCounter_, sf::RenderWindow &window_, std::unique_ptr<BaseBlock> ptrToBlock_) noexcept
 {
     window_.draw(band_);

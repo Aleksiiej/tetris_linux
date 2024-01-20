@@ -11,6 +11,10 @@ class Game
 public:
     Game() noexcept;
     void run();
+	void gameLoop() noexcept;
+	void processInput() noexcept;
+	void update() noexcept;
+	void render() noexcept;
 
 private:
     sf::RenderWindow window_{sf::VideoMode{800, 600}, "Tetris", sf::Style::Titlebar | sf::Style::Close};
