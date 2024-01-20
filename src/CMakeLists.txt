@@ -21,5 +21,5 @@ target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Werror)
 
 find_package(SFML COMPONENTS graphics)
 target_link_libraries(${PROJECT_NAME} sfml-graphics)
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_23)
 target_include_directories(${PROJECT_NAME} PUBLIC ../include)
