@@ -14,7 +14,7 @@ public:
 	void gameLoop() noexcept;
 	void processInput() noexcept;
 	void update() noexcept;
-	std::unique_ptr<BaseBlock> render(bool startgame, bool endgame, std::unique_ptr<BaseBlock> ptrToBlock = nullptr) noexcept;
+	void render(bool startgame, bool endgame) noexcept;
 
 private:
     sf::RenderWindow window_{sf::VideoMode{800, 600}, "Tetris", sf::Style::Titlebar | sf::Style::Close};

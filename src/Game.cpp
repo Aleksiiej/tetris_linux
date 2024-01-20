@@ -30,12 +30,12 @@ void Game::run()
         if (gameStatus_ == GameStatus::Ongoing)
         {
             processInput();
-            ptrToBlock_ = render(false, false, std::move(ptrToBlock_));
+            render(false, false);
             update();
         }
         else if (gameStatus_ == GameStatus::Lost)
         {
-            ptrToBlock_ = render(false, true, std::move(ptrToBlock_));
+            render(false, true);
             while (window_.waitEvent(event_))
             {
                 if (event_.type == sf::Event::EventType::KeyPressed and event_.key.code == sf::Keyboard::Space)
@@ -128,7 +128,7 @@ void Game::update() noexcept
     }
 }
 
-std::unique_ptr<BaseBlock> Game::render(bool startgame, bool endgame, std::unique_ptr<BaseBlock> ptrToBlock_) noexcept
+void Game::render(bool startgame, bool endgame) noexcept
 {
     window_.draw(band_);
     window_.draw(scoreCounter_);
@@ -144,7 +144,7 @@ std::unique_ptr<BaseBlock> Game::render(bool startgame, bool endgame, std::uniqu
             window_.draw(singleField);
         }
     }
-    if (ptrToBlock_)
+    if (!startgame)
     {
         for (const auto &block : ptrToBlock_->getBlockArrayRef())
         {
@@ -160,7 +160,6 @@ std::unique_ptr<BaseBlock> Game::render(bool startgame, bool endgame, std::uniqu
         window_.draw(endgameText_);
     }
     window_.display();
-    return ptrToBlock_;
 }
 
 void Game::resetGame(GameStatus &gameStatus_, BlockBoard &blockBoard_, ScoreCounter &scoreCounter_) noexcept
