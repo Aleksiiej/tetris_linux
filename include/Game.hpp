@@ -33,5 +33,5 @@ private:
 	void update() noexcept;
 	void render(bool startgame, bool endgame) noexcept;
 	void waitForInput() noexcept;
-    void resetGame(GameStatus &gameStatus, BlockBoard &blockBoard, ScoreCounter &scoreCounter) noexcept;
+    void resetGame() noexcept;
 };

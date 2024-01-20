@@ -7,13 +7,11 @@ Game::Game() noexcept
 
 void Game::run()
 {
-    window_.clear(sf::Color::White);
     render(true, false);
     waitForInput();
 
     while (true)
     {
-        window_.clear(sf::Color::White);
 
         if (gameStatus_ == GameStatus::Ongoing)
         {
@@ -25,7 +23,7 @@ void Game::run()
         {
             render(false, true);
             waitForInput();
-            resetGame(gameStatus_, blockBoard_, scoreCounter_);
+            resetGame();
         }
     }
 }
@@ -103,6 +101,8 @@ void Game::update() noexcept
 
 void Game::render(bool startgame, bool endgame) noexcept
 {
+    window_.clear(sf::Color::White);
+
     window_.draw(band_);
     window_.draw(scoreCounter_);
 
@@ -146,12 +146,12 @@ void Game::waitForInput() noexcept
         if (event_.type == sf::Event::EventType::Closed or event_.key.code == sf::Keyboard::Escape)
         {
             window_.close();
-            return;
+            exit(0);
         }
     }
 }
 
-void Game::resetGame(GameStatus &gameStatus_, BlockBoard &blockBoard_, ScoreCounter &scoreCounter_) noexcept
+void Game::resetGame() noexcept
 {
     gameStatus_ = GameStatus::Ongoing;
     blockBoard_.clear();
