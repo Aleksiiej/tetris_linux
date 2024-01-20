@@ -9,19 +9,7 @@ void Game::run()
 {
     window_.clear(sf::Color::White);
     render(true, false);
-
-    while (window_.waitEvent(event_))
-    {
-        if (event_.type == sf::Event::EventType::KeyPressed and event_.key.code == sf::Keyboard::Enter)
-        {
-            break;
-        }
-        if (event_.type == sf::Event::EventType::Closed or event_.key.code == sf::Keyboard::Escape)
-        {
-            window_.close();
-            return;
-        }
-    }
+    waitForInput();
 
     while (true)
     {
@@ -36,25 +24,10 @@ void Game::run()
         else if (gameStatus_ == GameStatus::Lost)
         {
             render(false, true);
-            while (window_.waitEvent(event_))
-            {
-                if (event_.type == sf::Event::EventType::KeyPressed and event_.key.code == sf::Keyboard::Space)
-                {
-                    break;
-                }
-                if (event_.type == sf::Event::EventType::Closed or event_.key.code == sf::Keyboard::Escape)
-                {
-                    window_.close();
-                    return;
-                }
-            }
+            waitForInput();
             resetGame(gameStatus_, blockBoard_, scoreCounter_);
         }
     }
-}
-
-void Game::gameLoop() noexcept
-{
 }
 
 void Game::processInput() noexcept
@@ -151,15 +124,31 @@ void Game::render(bool startgame, bool endgame) noexcept
             window_.draw(block);
         }
     }
-    if(startgame)
+    if (startgame)
     {
         window_.draw(startgameText_);
     }
-    if(endgame)
+    if (endgame)
     {
         window_.draw(endgameText_);
     }
     window_.display();
+}
+
+void Game::waitForInput() noexcept
+{
+    while (window_.waitEvent(event_))
+    {
+        if (event_.type == sf::Event::EventType::KeyPressed and event_.key.code == sf::Keyboard::Space)
+        {
+            break;
+        }
+        if (event_.type == sf::Event::EventType::Closed or event_.key.code == sf::Keyboard::Escape)
+        {
+            window_.close();
+            return;
+        }
+    }
 }
 
 void Game::resetGame(GameStatus &gameStatus_, BlockBoard &blockBoard_, ScoreCounter &scoreCounter_) noexcept
