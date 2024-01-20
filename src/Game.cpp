@@ -12,7 +12,6 @@ void Game::run()
 
     while (true)
     {
-
         if (gameStatus_ == GameStatus::Ongoing)
         {
             processInput();
