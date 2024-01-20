@@ -12,6 +12,7 @@ set(SRC_LIST
     BlockBoard.cpp
     BlockCreator.cpp
     EndgameText.cpp
+    Game.cpp
     ScoreCounter.cpp
     StartgameText.cpp
 )
