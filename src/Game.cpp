@@ -31,68 +31,10 @@ void Game::run()
 
         if (gameStatus_ == GameStatus::Ongoing)
         {
-            while (window_.pollEvent(event_))
-            {
-                if (event_.type == sf::Event::EventType::KeyPressed)
-                {
-                    switch (event_.key.code)
-                    {
-                    case sf::Keyboard::Right:
-                        ptrToBlock_->moveRight();
-                        break;
-
-                    case sf::Keyboard::Left:
-                        ptrToBlock_->moveLeft();
-                        break;
-
-                    case sf::Keyboard::Down:
-                        ptrToBlock_->moveDown();
-                        break;
-
-                    case sf::Keyboard::Space:
-                        ptrToBlock_->rotate();
-                        break;
-
-                    case sf::Keyboard::P:
-                        while (window_.waitEvent(event_))
-                        {
-                            if (event_.type == sf::Event::EventType::KeyPressed and event_.key.code == sf::Keyboard::P)
-                            {
-                                break;
-                            }
-                        }
-                        break;
-
-                    default:
-                        break;
-                    }
-                }
-                else if (event_.type == sf::Event::EventType::Closed)
-                {
-                    window_.close();
-                    return;
-                }
-            }
+            processInput();
             ptrToBlock_ = drawBoard(band_, blockBoard_, scoreCounter_, window_, std::move(ptrToBlock_));
             window_.display();
-            if (ptrToBlock_->isFallingPossible())
-            {
-                if (clock_.getElapsedTime() >= sf::milliseconds(GAME_SPEED))
-                {
-                    ptrToBlock_->fall();
-                    blockBoard_.handleFilledRows();
-                    clock_.restart();
-                }
-            }
-            else
-            {
-                ptrToBlock_.reset(nullptr);
-                ptrToBlock_ = std::move(BlockCreator::createRandomBlock(blockBoard_, rd_));
-                if (ptrToBlock_->checkIfLost())
-                {
-                    gameStatus_ = GameStatus::Lost;
-                }
-            }
+            update();
         }
         else if (gameStatus_ == GameStatus::Lost)
         {
@@ -116,25 +58,89 @@ void Game::run()
     }
 }
 
-
 void Game::gameLoop() noexcept
 {
-
 }
 
 void Game::processInput() noexcept
 {
+    while (window_.pollEvent(event_))
+    {
+        if (event_.type == sf::Event::EventType::KeyPressed)
+        {
+            switch (event_.key.code)
+            {
+            case sf::Keyboard::Right:
+                ptrToBlock_->moveRight();
+                break;
 
+            case sf::Keyboard::Left:
+                ptrToBlock_->moveLeft();
+                break;
+
+            case sf::Keyboard::Down:
+                ptrToBlock_->moveDown();
+                break;
+
+            case sf::Keyboard::Space:
+                ptrToBlock_->rotate();
+                break;
+
+            case sf::Keyboard::P:
+                while (window_.waitEvent(event_))
+                {
+                    if (event_.type == sf::Event::EventType::KeyPressed and event_.key.code == sf::Keyboard::P)
+                    {
+                        break;
+                    }
+                }
+                break;
+
+            case sf::Keyboard::Escape:
+                window_.close();
+                exit(0);
+            default:
+                break;
+            }
+        }
+        else if (event_.type == sf::Event::EventType::Closed)
+        {
+            window_.close();
+            exit(0);
+        }
+    }
 }
 
 void Game::update() noexcept
 {
-
+    if (ptrToBlock_->isFallingPossible())
+    {
+        if (clock_.getElapsedTime() >= sf::milliseconds(GAME_SPEED))
+        {
+            ptrToBlock_->fall();
+            blockBoard_.handleFilledRows();
+            clock_.restart();
+        }
+    }
+    else
+    {
+        ptrToBlock_.reset(nullptr);
+        ptrToBlock_ = std::move(BlockCreator::createRandomBlock(blockBoard_, rd_));
+        if (ptrToBlock_->checkIfLost())
+        {
+            gameStatus_ = GameStatus::Lost;
+        }
+    }
 }
 
-void Game::render() noexcept
+void Game::render(bool endgame) noexcept
 {
-    
+    drawBoard(band_, blockBoard_, scoreCounter_, window_);
+    if(endgame)
+    {
+        window_.draw(endgameText_);
+    }
+    window_.display();
 }
 
 std::unique_ptr<BaseBlock> Game::drawBoard(const Band &band_, BlockBoard &blockBoardRef_, const ScoreCounter &scoreCounter_, sf::RenderWindow &window_, std::unique_ptr<BaseBlock> ptrToBlock_) noexcept

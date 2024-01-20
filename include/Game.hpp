@@ -14,7 +14,7 @@ public:
 	void gameLoop() noexcept;
 	void processInput() noexcept;
 	void update() noexcept;
-	void render() noexcept;
+	void render(bool endgame = false) noexcept;
 
 private:
     sf::RenderWindow window_{sf::VideoMode{800, 600}, "Tetris", sf::Style::Titlebar | sf::Style::Close};
