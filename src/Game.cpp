@@ -8,7 +8,7 @@ Game::Game() noexcept
 void Game::run()
 {
     window_.clear(sf::Color::White);
-    render(band_, blockBoard_, scoreCounter_, window_, true, false);
+    render(true, false);
 
     while (window_.waitEvent(event_))
     {
@@ -30,12 +30,12 @@ void Game::run()
         if (gameStatus_ == GameStatus::Ongoing)
         {
             processInput();
-            ptrToBlock_ = render(band_, blockBoard_, scoreCounter_, window_, false, false, std::move(ptrToBlock_));
+            ptrToBlock_ = render(false, false, std::move(ptrToBlock_));
             update();
         }
         else if (gameStatus_ == GameStatus::Lost)
         {
-            ptrToBlock_ = render(band_, blockBoard_, scoreCounter_, window_, false, true, std::move(ptrToBlock_));
+            ptrToBlock_ = render(false, true, std::move(ptrToBlock_));
             while (window_.waitEvent(event_))
             {
                 if (event_.type == sf::Event::EventType::KeyPressed and event_.key.code == sf::Keyboard::Space)
@@ -128,7 +128,7 @@ void Game::update() noexcept
     }
 }
 
-std::unique_ptr<BaseBlock> Game::render(const Band &band_, BlockBoard &blockBoardRef_, const ScoreCounter &scoreCounter_, sf::RenderWindow &window_, bool startgame, bool endgame, std::unique_ptr<BaseBlock> ptrToBlock_) noexcept
+std::unique_ptr<BaseBlock> Game::render(bool startgame, bool endgame, std::unique_ptr<BaseBlock> ptrToBlock_) noexcept
 {
     window_.draw(band_);
     window_.draw(scoreCounter_);
@@ -139,7 +139,7 @@ std::unique_ptr<BaseBlock> Game::render(const Band &band_, BlockBoard &blockBoar
     {
         for (uint8_t j = 0; j < NUMBER_OF_ROWS; j++)
         {
-            singleField.setFillColor(blockBoardRef_.getBoardArrayRef().at(i).at(j));
+            singleField.setFillColor(blockBoard_.getBoardArrayRef().at(i).at(j));
             singleField.setPosition(static_cast<float>(i * GRID + GRID), static_cast<float>(j * GRID + GRID));
             window_.draw(singleField);
         }
