@@ -8,9 +8,7 @@ Game::Game() noexcept
 void Game::run()
 {
     window_.clear(sf::Color::White);
-    drawBoard(band_, blockBoard_, scoreCounter_, window_);
-    window_.draw(startgameText_);
-    window_.display();
+    render(band_, blockBoard_, scoreCounter_, window_, true, false);
 
     while (window_.waitEvent(event_))
     {
@@ -32,15 +30,12 @@ void Game::run()
         if (gameStatus_ == GameStatus::Ongoing)
         {
             processInput();
-            ptrToBlock_ = drawBoard(band_, blockBoard_, scoreCounter_, window_, std::move(ptrToBlock_));
-            window_.display();
+            ptrToBlock_ = render(band_, blockBoard_, scoreCounter_, window_, false, false, std::move(ptrToBlock_));
             update();
         }
         else if (gameStatus_ == GameStatus::Lost)
         {
-            drawBoard(band_, blockBoard_, scoreCounter_, window_);
-            window_.draw(endgameText_);
-            window_.display();
+            ptrToBlock_ = render(band_, blockBoard_, scoreCounter_, window_, false, true, std::move(ptrToBlock_));
             while (window_.waitEvent(event_))
             {
                 if (event_.type == sf::Event::EventType::KeyPressed and event_.key.code == sf::Keyboard::Space)
@@ -133,17 +128,7 @@ void Game::update() noexcept
     }
 }
 
-void Game::render(bool endgame) noexcept
-{
-    drawBoard(band_, blockBoard_, scoreCounter_, window_);
-    if(endgame)
-    {
-        window_.draw(endgameText_);
-    }
-    window_.display();
-}
-
-std::unique_ptr<BaseBlock> Game::drawBoard(const Band &band_, BlockBoard &blockBoardRef_, const ScoreCounter &scoreCounter_, sf::RenderWindow &window_, std::unique_ptr<BaseBlock> ptrToBlock_) noexcept
+std::unique_ptr<BaseBlock> Game::render(const Band &band_, BlockBoard &blockBoardRef_, const ScoreCounter &scoreCounter_, sf::RenderWindow &window_, bool startgame, bool endgame, std::unique_ptr<BaseBlock> ptrToBlock_) noexcept
 {
     window_.draw(band_);
     window_.draw(scoreCounter_);
@@ -166,7 +151,15 @@ std::unique_ptr<BaseBlock> Game::drawBoard(const Band &band_, BlockBoard &blockB
             window_.draw(block);
         }
     }
-
+    if(startgame)
+    {
+        window_.draw(startgameText_);
+    }
+    if(endgame)
+    {
+        window_.draw(endgameText_);
+    }
+    window_.display();
     return ptrToBlock_;
 }
 

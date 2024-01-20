@@ -14,7 +14,7 @@ public:
 	void gameLoop() noexcept;
 	void processInput() noexcept;
 	void update() noexcept;
-	void render(bool endgame = false) noexcept;
+	std::unique_ptr<BaseBlock> render(const Band &band, BlockBoard &blockBoardRef, const ScoreCounter &scoreCounter, sf::RenderWindow &window, bool startgame, bool endgame, std::unique_ptr<BaseBlock> ptrToBlock = nullptr) noexcept;
 
 private:
     sf::RenderWindow window_{sf::VideoMode{800, 600}, "Tetris", sf::Style::Titlebar | sf::Style::Close};
@@ -29,6 +29,5 @@ private:
 	std::unique_ptr<BaseBlock> ptrToBlock_ = BlockCreator::createRandomBlock(blockBoard_, rd_);
 	sf::Clock clock_;
 
-    std::unique_ptr<BaseBlock> drawBoard(const Band &band, BlockBoard &blockBoardRef, const ScoreCounter &scoreCounter, sf::RenderWindow &window, std::unique_ptr<BaseBlock> ptrToBlock = nullptr) noexcept;
     void resetGame(GameStatus &gameStatus, BlockBoard &blockBoard, ScoreCounter &scoreCounter) noexcept;
 };
