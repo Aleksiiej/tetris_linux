@@ -9,13 +9,13 @@ Game::Game() noexcept
 
 std::optional<std::unique_ptr<Game>> Game::createInstance() noexcept
 {
-    if(!numOfInstances)
-    {   
+    if (!numOfInstances)
+    {
         numOfInstances++;
-	    return std::optional<std::unique_ptr<Game>>{std::make_unique<Game>()};
+        return std::optional<std::unique_ptr<Game>>{std::make_unique<Game>()};
     }
-    else return std::nullopt;
-
+    else
+        return std::nullopt;
 }
 
 void Game::run() noexcept
