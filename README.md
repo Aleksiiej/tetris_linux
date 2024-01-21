@@ -11,6 +11,7 @@ This project is a reimagining of the iconic Tetris game, developed in C++ using 
 - SFML Graphics: Incorporates SFML for rendering graphics, handling events, and managing audio, showcasing the library's capabilities in a game development context.
 - Linux Compatibility: Optimized for Linux platforms, demonstrating the ability to create cross-platform C++ applications.
 - Engaging Gameplay: Offers a classic Tetris experience with a modern twist, providing both challenge and entertainment.
+- Usage of Design Patterns: several Design Patterns like Factory Method, State Machine or Singleton have been used in this project
 
 ## Technical Stack:
 - Language: Modern C++ (11, 14, 17)
