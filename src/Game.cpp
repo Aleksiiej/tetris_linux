@@ -1,11 +1,24 @@
 #include "Game.hpp"
 
+uint8_t Game::numOfInstances = 0;
+
 Game::Game() noexcept
 {
     window_.setFramerateLimit(60);
 }
 
-void Game::run()
+std::optional<std::unique_ptr<Game>> Game::createInstance() noexcept
+{
+    if(!numOfInstances)
+    {   
+        numOfInstances++;
+	    return std::optional<std::unique_ptr<Game>>{std::make_unique<Game>()};
+    }
+    else return std::nullopt;
+
+}
+
+void Game::run() noexcept
 {
     render(true, false);
     waitForInput();

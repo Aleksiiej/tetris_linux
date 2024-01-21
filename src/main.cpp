@@ -7,7 +7,10 @@
 
 int main()
 {
-	Game game;
-	game.run();
+	auto game = Game::createInstance();
+	if (game.has_value())
+	{
+		game.value()->run();
+	}
 	return 0;
 }
